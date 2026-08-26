@@ -1,0 +1,18 @@
+[
+  {
+    "repository": "android_kernel_motorola_sm7450",
+    "target_path": "kernel/motorola/sm7450"
+  },
+  {
+    "repository": "android_kernel_motorola_sm7450-modules",
+    "target_path": "kernel/motorola/sm7450-modules"
+  },
+  {
+    "repository": "android_kernel_motorola_sm7450-devicetrees",
+    "target_path": "kernel/motorola/sm7450-devicetrees"
+  },
+  {
+    "repository": "android_hardware_motorola",
+    "target_path": "hardware/motorola"
+  }
+]

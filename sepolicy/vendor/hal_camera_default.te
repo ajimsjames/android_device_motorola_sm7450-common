@@ -1,0 +1,12 @@
+# Camera HAL sysfs and device access
+allow hal_camera_default vendor_sysfs_camera:dir r_dir_perms;
+allow hal_camera_default vendor_sysfs_camera:file rw_file_perms;
+
+# Camera HAL property permissions
+set_prop(hal_camera_default, vendor_camera_prop)
+get_prop(hal_camera_default, vendor_camera_prop)
+
+# Camera hardware nodes
+allow hal_camera_default video_device:chr_file rw_file_perms;
+allow hal_camera_default camera_device:chr_file rw_file_perms;
+allow hal_camera_default gpu_device:chr_file rw_file_perms;

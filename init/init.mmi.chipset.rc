@@ -1,0 +1,19 @@
+# Charge only mode configuration
+import /vendor/etc/init/hw/init.mmi.charge_only.rc
+
+on post-fs
+    # MOT_LED_CALIBRATION
+    chown camera camera /mnt/vendor/persist/camera/mot_ledcal
+
+on early-boot
+    # Permission for Health Storage HAL
+    chown system system /sys/devices/platform/soc/1d84000.ufshc/manual_gc
+    chown system system /sys/devices/platform/soc/1d84000.ufshc/ufshid/trigger
+
+on boot
+    # Set adaptive charging perms for HAL
+    chown system system /sys/module/qpnp_adaptive_charge/parameters/charging_enabled
+    chmod 0660 /sys/module/qpnp_adaptive_charge/parameters/charging_enabled
+
+on property:sys.boot_completed=1
+    write /sys/devices/platform/soc/soc:mmi,charger/state_sync 1
