@@ -66,8 +66,10 @@ void BiometricsFingerprint::disableHighBrightFod() {
     if (!hbmFodEnabled)
         return;
 
-    mMotoFingerprint->sendFodEvent(NOTIFY_FINGER_UP, {},
-                                   [](IMotFodEventResult, const hidl_vec<signed char> &) {});
+    if (mMotoFingerprint != nullptr) {
+        mMotoFingerprint->sendFodEvent(NOTIFY_FINGER_UP, {},
+                                       [](IMotFodEventResult, const hidl_vec<signed char> &) {});
+    }
     setHbmState(OFF);
 
     hbmFodEnabled = false;
@@ -80,8 +82,10 @@ void BiometricsFingerprint::enableHighBrightFod() {
         return;
 
     setHbmState(ON);
-    mMotoFingerprint->sendFodEvent(NOTIFY_FINGER_DOWN, {},
-                                   [](IMotFodEventResult, const hidl_vec<signed char> &) {});
+    if (mMotoFingerprint != nullptr) {
+        mMotoFingerprint->sendFodEvent(NOTIFY_FINGER_DOWN, {},
+                                       [](IMotFodEventResult, const hidl_vec<signed char> &) {});
+    }
 
     hbmFodEnabled = true;
 }
@@ -95,46 +99,86 @@ BiometricsFingerprint::BiometricsFingerprint() {
 
 Return<uint64_t> BiometricsFingerprint::setNotify(
     const sp<IBiometricsFingerprintClientCallback> &clientCallback) {
+    if (!biometrics_2_1_service) {
+        biometrics_2_1_service = IBiometricsFingerprint_2_1::getService();
+        if (!biometrics_2_1_service) return 0;
+    }
     return biometrics_2_1_service->setNotify(clientCallback);
 }
 
 Return<uint64_t> BiometricsFingerprint::preEnroll() {
+    if (!biometrics_2_1_service) {
+        biometrics_2_1_service = IBiometricsFingerprint_2_1::getService();
+        if (!biometrics_2_1_service) return 0;
+    }
     return biometrics_2_1_service->preEnroll();
 }
 
 Return<RequestStatus> BiometricsFingerprint::enroll(const hidl_array<uint8_t, 69> &hat,
                                                     uint32_t gid, uint32_t timeoutSec) {
+    if (!biometrics_2_1_service) {
+        biometrics_2_1_service = IBiometricsFingerprint_2_1::getService();
+        if (!biometrics_2_1_service) return RequestStatus::SYS_EINVAL;
+    }
     return biometrics_2_1_service->enroll(hat, gid, timeoutSec);
 }
 
 Return<RequestStatus> BiometricsFingerprint::postEnroll() {
+    if (!biometrics_2_1_service) {
+        biometrics_2_1_service = IBiometricsFingerprint_2_1::getService();
+        if (!biometrics_2_1_service) return RequestStatus::SYS_EINVAL;
+    }
     return biometrics_2_1_service->postEnroll();
 }
 
 Return<uint64_t> BiometricsFingerprint::getAuthenticatorId() {
+    if (!biometrics_2_1_service) {
+        biometrics_2_1_service = IBiometricsFingerprint_2_1::getService();
+        if (!biometrics_2_1_service) return 0;
+    }
     return biometrics_2_1_service->getAuthenticatorId();
 }
 
 Return<RequestStatus> BiometricsFingerprint::cancel() {
+    if (!biometrics_2_1_service) {
+        biometrics_2_1_service = IBiometricsFingerprint_2_1::getService();
+        if (!biometrics_2_1_service) return RequestStatus::SYS_EINVAL;
+    }
     auto ret = biometrics_2_1_service->cancel();
     BiometricsFingerprint::onFingerUp();
     return ret;
 }
 
 Return<RequestStatus> BiometricsFingerprint::enumerate() {
+    if (!biometrics_2_1_service) {
+        biometrics_2_1_service = IBiometricsFingerprint_2_1::getService();
+        if (!biometrics_2_1_service) return RequestStatus::SYS_EINVAL;
+    }
     return biometrics_2_1_service->enumerate();
 }
 
 Return<RequestStatus> BiometricsFingerprint::remove(uint32_t gid, uint32_t fid) {
+    if (!biometrics_2_1_service) {
+        biometrics_2_1_service = IBiometricsFingerprint_2_1::getService();
+        if (!biometrics_2_1_service) return RequestStatus::SYS_EINVAL;
+    }
     return biometrics_2_1_service->remove(gid, fid);
 }
 
 Return<RequestStatus> BiometricsFingerprint::setActiveGroup(uint32_t gid,
                                                             const hidl_string &storePath) {
+    if (!biometrics_2_1_service) {
+        biometrics_2_1_service = IBiometricsFingerprint_2_1::getService();
+        if (!biometrics_2_1_service) return RequestStatus::SYS_EINVAL;
+    }
     return biometrics_2_1_service->setActiveGroup(gid, storePath);
 }
 
 Return<RequestStatus> BiometricsFingerprint::authenticate(uint64_t operationId, uint32_t gid) {
+    if (!biometrics_2_1_service) {
+        biometrics_2_1_service = IBiometricsFingerprint_2_1::getService();
+        if (!biometrics_2_1_service) return RequestStatus::SYS_EINVAL;
+    }
     auto ret = biometrics_2_1_service->authenticate(operationId, gid);
     BiometricsFingerprint::onFingerUp();
     return ret;
@@ -145,20 +189,12 @@ Return<bool> BiometricsFingerprint::isUdfps(uint32_t) {
 }
 
 Return<void> BiometricsFingerprint::onFingerDown(uint32_t, uint32_t, float, float) {
-    std::this_thread::sleep_for(std::chrono::milliseconds(200));
     BiometricsFingerprint::enableHighBrightFod();
-
-    std::thread([this]() {
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
-        BiometricsFingerprint::onFingerUp();
-    }).detach();
-
     return Void();
 }
 
 Return<void> BiometricsFingerprint::onFingerUp() {
     BiometricsFingerprint::disableHighBrightFod();
-
     return Void();
 }
 
