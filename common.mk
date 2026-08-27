@@ -298,6 +298,7 @@ PRODUCT_PACKAGES += \
     extphonelib.xml \
     extphonelib_product.xml \
     MotoNrEnabler \
+    MotoActions \
     ims-ext-common \
     ims_ext_common.xml \
     qti-telephony-hidl-wrapper \
