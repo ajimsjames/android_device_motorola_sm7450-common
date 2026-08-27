@@ -73,7 +73,6 @@ BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_CMDLINE += \
     firmware_class.path=/vendor/firmware_mnt/image \
-    androidboot.selinux=permissive \
     printk.devkmsg=on
 BOARD_BOOTCONFIG += \
     androidboot.hardware=qcom \
