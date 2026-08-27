@@ -155,6 +155,7 @@ TARGET_KERNEL_EXT_MODULES += \
     motorola/drivers/misc/awinic/sarsensor \
     motorola/drivers/misc/stk501xx \
     motorola/drivers/misc/sx937x \
+    motorola/drivers/mmi_relay \
     motorola/drivers/input/touchscreen/touchscreen_mmi \
     motorola/drivers/input/touchscreen/focaltech_0flash_v2_mmi \
     motorola/drivers/input/touchscreen/ili9882_mmi \
@@ -256,6 +257,19 @@ WIFI_HIDL_FEATURE_AWARE := true
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 WPA_SUPPLICANT_VERSION := VER_0_8_X
+
+# Charging Control & Bypass Charging
+TARGET_HEALTH_CHARGING_CONTROL_CHARGING_PATH := /sys/class/power_supply/battery/charging_enabled
+TARGET_HEALTH_CHARGING_CONTROL_CHARGING_ENABLED := 1
+TARGET_HEALTH_CHARGING_CONTROL_CHARGING_DISABLED := 0
+TARGET_HEALTH_CHARGING_CONTROL_SUPPORTS_BYPASS := true
+TARGET_HEALTH_CHARGING_CONTROL_SUPPORTS_TOGGLE := true
+
+# Power-Off Alarm
+TARGET_PROVIDES_POWER_OFF_ALARM := true
+
+# Qualcomm IPA Hardware Acceleration
+TARGET_USES_QCOM_IPA := true
 
 # inherit from the proprietary version
 include vendor/motorola/sm7450-common/BoardConfigVendor.mk
