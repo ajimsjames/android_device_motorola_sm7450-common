@@ -115,6 +115,7 @@ phy-qcom-ufs-qmp-v4-anarok.ko
 phy-qcom-ufs-qmp-v3.ko
 phy-qcom-ufs-qmp-14nm.ko
 pinctrl-spmi-gpio.ko
+gpio_keys.ko
 pinctrl-spmi-mpp.ko
 pwm-qti-lpg.ko
 pci-msm-drv.ko

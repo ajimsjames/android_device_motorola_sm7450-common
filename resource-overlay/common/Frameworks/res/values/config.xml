@@ -128,4 +128,22 @@
 
     <!-- Whether to select voice/data/sms preference without user confirmation -->
     <bool name="config_voice_data_sms_auto_fallback">true</bool>
+
+    <!-- Vibration Intensity Scale Factors (Low, Medium, High) -->
+    <string-array name="config_vibrationIntensityScaleFactors" translatable="false">
+        <item>0.40</item>
+        <item>0.75</item>
+        <item>1.00</item>
+    </string-array>
+
+    <!-- Default intensity levels for all vibration types (1: Low, 2: Medium, 3: High) -->
+    <integer name="config_defaultRingVibrationIntensity">3</integer>
+    <integer name="config_defaultNotificationVibrationIntensity">3</integer>
+    <integer name="config_defaultAlarmVibrationIntensity">3</integer>
+    <integer name="config_defaultHapticFeedbackIntensity">3</integer>
+    <integer name="config_defaultMediaVibrationIntensity">3</integer>
+
+    <!-- Standby & Battery Efficiency Optimizations (Zero UI Latency Impact) -->
+    <bool name="config_lightDozeEnabled">true</bool>
+    <bool name="config_speed_up_audio_on_mt_calls">true</bool>
 </resources>

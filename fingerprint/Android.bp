@@ -2,7 +2,10 @@ cc_binary {
     name: "android.hardware.biometrics.fingerprint@2.3-service.moto_sm7450_fod",
     defaults: ["hidl_defaults"],
     init_rc: ["android.hardware.biometrics.fingerprint@2.3-service.moto_sm7450_fod.rc"],
-    vintf_fragments: ["android.hardware.biometrics.fingerprint@2.3-service.moto_sm7450_fod.xml"],
+    vintf_fragments: [
+        "android.hardware.biometrics.fingerprint@2.3-service.moto_sm7450_fod.xml",
+        "com.motorola.hardware.biometric.fingerprint@1.0-service.xml",
+    ],
     relative_install_path: "hw",
     cflags: [
         "-DLOG_TAG=\"android.hardware.biometrics.fingerprint@2.3-service.moto_sm7450_fod\"",

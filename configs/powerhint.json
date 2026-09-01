@@ -46,7 +46,7 @@
       "Name": "CPULittleClusterDownRateLimit",
       "Path": "/sys/devices/system/cpu/cpufreq/policy0/walt/down_rate_limit_us",
       "Values": [
-        "20000",
+        "10000",
         "2000"
       ],
       "ResetOnInit": true
@@ -103,7 +103,7 @@
       "Name": "CPUBigClusterDownRateLimit",
       "Path": "/sys/devices/system/cpu/cpufreq/policy4/walt/down_rate_limit_us",
       "Values": [
-        "10000",
+        "5000",
         "2000"
       ],
       "ResetOnInit": true
@@ -430,7 +430,7 @@
       "PowerHint": "INTERACTIVE",
       "Node": "CPULittleClusterDownRateLimit",
       "Duration": 0,
-      "Value": "20000"
+      "Value": "10000"
     },
     {
       "PowerHint": "INTERACTIVE",
@@ -442,7 +442,7 @@
       "PowerHint": "INTERACTIVE",
       "Node": "CPUBigClusterDownRateLimit",
       "Duration": 0,
-      "Value": "10000"
+      "Value": "5000"
     },
     {
       "PowerHint": "INTERACTIVE",

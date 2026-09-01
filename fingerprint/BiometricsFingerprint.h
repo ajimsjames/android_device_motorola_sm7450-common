@@ -20,6 +20,7 @@
 #include <com/motorola/hardware/biometric/fingerprint/1.0/IMotoFingerPrint.h>
 #include <hidl/MQDescriptor.h>
 #include <hidl/Status.h>
+#include <mutex>
 
 namespace android {
 namespace hardware {
@@ -37,11 +38,36 @@ using ::android::hardware::hidl_string;
 using ::android::hardware::hidl_vec;
 using ::android::hardware::Return;
 using ::android::hardware::Void;
+using ::android::hardware::biometrics::fingerprint::V2_1::FingerprintAcquiredInfo;
+using ::android::hardware::biometrics::fingerprint::V2_1::FingerprintError;
 using ::android::hardware::biometrics::fingerprint::V2_1::IBiometricsFingerprintClientCallback;
 using ::android::hardware::biometrics::fingerprint::V2_1::RequestStatus;
 using ::com::motorola::hardware::biometric::fingerprint::V1_0::IMotFodEventResult;
 using ::com::motorola::hardware::biometric::fingerprint::V1_0::IMotFodEventType;
 using ::com::motorola::hardware::biometric::fingerprint::V1_0::IMotoFingerPrint;
+
+struct BiometricsFingerprint;
+
+struct FingerprintClientCallbackProxy : public IBiometricsFingerprintClientCallback {
+    FingerprintClientCallbackProxy(sp<BiometricsFingerprint> parent,
+                                   sp<IBiometricsFingerprintClientCallback> clientCallback);
+
+    Return<void> onEnrollResult(uint64_t deviceId, uint32_t fingerId, uint32_t groupId,
+                                uint32_t remaining) override;
+    Return<void> onAcquired(uint64_t deviceId, FingerprintAcquiredInfo acquiredInfo,
+                            int32_t vendorCode) override;
+    Return<void> onAuthenticated(uint64_t deviceId, uint32_t fingerId, uint32_t groupId,
+                                 const hidl_vec<uint8_t> &token) override;
+    Return<void> onError(uint64_t deviceId, FingerprintError error, int32_t vendorCode) override;
+    Return<void> onRemoved(uint64_t deviceId, uint32_t fingerId, uint32_t groupId,
+                           uint32_t remaining) override;
+    Return<void> onEnumerate(uint64_t deviceId, uint32_t fingerId, uint32_t groupId,
+                             uint32_t remaining) override;
+
+  private:
+    sp<BiometricsFingerprint> mParent;
+    sp<IBiometricsFingerprintClientCallback> mClientCallback;
+};
 
 struct BiometricsFingerprint : public IBiometricsFingerprint {
     BiometricsFingerprint();
@@ -64,15 +90,16 @@ struct BiometricsFingerprint : public IBiometricsFingerprint {
     Return<void> onFingerDown(uint32_t x, uint32_t y, float minor, float major) override;
     Return<void> onFingerUp() override;
 
-  private:
     void disableHighBrightFod();
     void enableHighBrightFod();
 
+  private:
     bool hbmFodEnabled;
     std::mutex mSetHbmFodMutex;
 
     sp<IBiometricsFingerprint_2_1> biometrics_2_1_service;
     sp<IMotoFingerPrint> mMotoFingerprint;
+    sp<FingerprintClientCallbackProxy> mProxyCallback;
 };
 
 }  // namespace implementation

@@ -66,9 +66,16 @@ void BiometricsFingerprint::disableHighBrightFod() {
     if (!hbmFodEnabled)
         return;
 
+    if (mMotoFingerprint == nullptr) {
+        mMotoFingerprint = IMotoFingerPrint::getService();
+    }
+
     if (mMotoFingerprint != nullptr) {
+        LOG(INFO) << "Sending NOTIFY_FINGER_UP to mMotoFingerprint";
         mMotoFingerprint->sendFodEvent(NOTIFY_FINGER_UP, {},
                                        [](IMotFodEventResult, const hidl_vec<signed char> &) {});
+    } else {
+        LOG(WARNING) << "mMotoFingerprint service is null when sending NOTIFY_FINGER_UP";
     }
     setHbmState(OFF);
 
@@ -82,12 +89,86 @@ void BiometricsFingerprint::enableHighBrightFod() {
         return;
 
     setHbmState(ON);
+    if (mMotoFingerprint == nullptr) {
+        mMotoFingerprint = IMotoFingerPrint::getService();
+    }
+
     if (mMotoFingerprint != nullptr) {
+        LOG(INFO) << "Sending NOTIFY_FINGER_DOWN to mMotoFingerprint";
         mMotoFingerprint->sendFodEvent(NOTIFY_FINGER_DOWN, {},
                                        [](IMotFodEventResult, const hidl_vec<signed char> &) {});
+    } else {
+        LOG(WARNING) << "mMotoFingerprint service is null when sending NOTIFY_FINGER_DOWN";
     }
 
     hbmFodEnabled = true;
+}
+
+FingerprintClientCallbackProxy::FingerprintClientCallbackProxy(
+    sp<BiometricsFingerprint> parent,
+    sp<IBiometricsFingerprintClientCallback> clientCallback)
+    : mParent(parent), mClientCallback(clientCallback) {}
+
+Return<void> FingerprintClientCallbackProxy::onEnrollResult(uint64_t deviceId, uint32_t fingerId,
+                                                            uint32_t groupId, uint32_t remaining) {
+    if (mParent != nullptr) {
+        mParent->disableHighBrightFod();
+    }
+    if (mClientCallback != nullptr) {
+        return mClientCallback->onEnrollResult(deviceId, fingerId, groupId, remaining);
+    }
+    return Void();
+}
+
+Return<void> FingerprintClientCallbackProxy::onAcquired(uint64_t deviceId,
+                                                        FingerprintAcquiredInfo acquiredInfo,
+                                                        int32_t vendorCode) {
+    if (acquiredInfo == FingerprintAcquiredInfo::ACQUIRED_GOOD && mParent != nullptr) {
+        mParent->disableHighBrightFod();
+    }
+    if (mClientCallback != nullptr) {
+        return mClientCallback->onAcquired(deviceId, acquiredInfo, vendorCode);
+    }
+    return Void();
+}
+
+Return<void> FingerprintClientCallbackProxy::onAuthenticated(uint64_t deviceId, uint32_t fingerId,
+                                                             uint32_t groupId,
+                                                             const hidl_vec<uint8_t> &token) {
+    if (mParent != nullptr) {
+        mParent->disableHighBrightFod();
+    }
+    if (mClientCallback != nullptr) {
+        return mClientCallback->onAuthenticated(deviceId, fingerId, groupId, token);
+    }
+    return Void();
+}
+
+Return<void> FingerprintClientCallbackProxy::onError(uint64_t deviceId, FingerprintError error,
+                                                     int32_t vendorCode) {
+    if (mParent != nullptr) {
+        mParent->disableHighBrightFod();
+    }
+    if (mClientCallback != nullptr) {
+        return mClientCallback->onError(deviceId, error, vendorCode);
+    }
+    return Void();
+}
+
+Return<void> FingerprintClientCallbackProxy::onRemoved(uint64_t deviceId, uint32_t fingerId,
+                                                       uint32_t groupId, uint32_t remaining) {
+    if (mClientCallback != nullptr) {
+        return mClientCallback->onRemoved(deviceId, fingerId, groupId, remaining);
+    }
+    return Void();
+}
+
+Return<void> FingerprintClientCallbackProxy::onEnumerate(uint64_t deviceId, uint32_t fingerId,
+                                                         uint32_t groupId, uint32_t remaining) {
+    if (mClientCallback != nullptr) {
+        return mClientCallback->onEnumerate(deviceId, fingerId, groupId, remaining);
+    }
+    return Void();
 }
 
 BiometricsFingerprint::BiometricsFingerprint() {
@@ -103,7 +184,8 @@ Return<uint64_t> BiometricsFingerprint::setNotify(
         biometrics_2_1_service = IBiometricsFingerprint_2_1::getService();
         if (!biometrics_2_1_service) return 0;
     }
-    return biometrics_2_1_service->setNotify(clientCallback);
+    mProxyCallback = new FingerprintClientCallbackProxy(this, clientCallback);
+    return biometrics_2_1_service->setNotify(mProxyCallback);
 }
 
 Return<uint64_t> BiometricsFingerprint::preEnroll() {
