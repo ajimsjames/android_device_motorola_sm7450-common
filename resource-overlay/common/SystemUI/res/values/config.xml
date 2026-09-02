@@ -6,4 +6,10 @@
 <resources>
     <!-- Doze: does this device support STATE_DOZE?  -->
     <bool name="doze_display_state_supported">true</bool>
+
+    <!-- Doze: should the device wake on gesture / touch on AOD for FOD sensor -->
+    <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
+    <bool name="config_dozePulsePickup">true</bool>
+    <bool name="config_dozeSupportsAodHalfZoned">true</bool>
+    <bool name="config_wakeOnDozingFOD">true</bool>
 </resources>

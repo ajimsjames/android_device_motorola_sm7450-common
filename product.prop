@@ -35,3 +35,21 @@ arm64.memtag.process.system_server=off
 # Motorola
 ro.mot.build.customerid=global
 
+# Zero-Lag UI & Hardware Accelerated Render Pipeline
+debug.hwui.render_dirty_regions=false
+debug.sf.latch_unsignaled=1
+renderthread.skia.reduceopstasksplitting=true
+windowsmgr.max_events_per_sec=300
+touch.pressure.scale=0.001
+
+# ART JIT Compiler & 12GB RAM Optimization
+dalvik.vm.usejit=true
+dalvik.vm.usejitprofiles=true
+dalvik.vm.dex2oat64.enabled=true
+ro.config.compact_action_1=4
+ro.config.compact_action_2=2
+
+# Battery Endurance, Standby & Wireless Power Savings
+wifi.supplicant_scan_interval=240
+ro.config.enable_freezer=true
+

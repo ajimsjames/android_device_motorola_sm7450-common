@@ -144,6 +144,17 @@
     <integer name="config_defaultMediaVibrationIntensity">3</integer>
 
     <!-- Standby & Battery Efficiency Optimizations (Zero UI Latency Impact) -->
-    <bool name="config_lightDozeEnabled">true</bool>
+    <bool name="config_lightDozeEnabled">false</bool>
     <bool name="config_speed_up_audio_on_mt_calls">true</bool>
+
+    <!-- Always On Display (AOD) and In-Display Fingerprint (FOD) responsiveness -->
+    <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
+    <bool name="config_displayBlanksAfterDoze">false</bool>
+    <bool name="config_fingerprintWakeAndUnlock">true</bool>
+    <bool name="config_dozeSupportsAodHalfZoned">true</bool>
+    <bool name="config_wakeOnDozingFOD">true</bool>
+
+    <!-- Double tap to wake (DT2W) hardware support -->
+    <bool name="config_supportDoubleTapWake">true</bool>
+    <bool name="config_supportDoubleTapOnHome">false</bool>
 </resources>
