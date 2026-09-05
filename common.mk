@@ -31,9 +31,35 @@ PRODUCT_PACKAGES += \
     checkpoint_gc \
     otapreopt_script
 
-# Disable Phantom Process Killer
+# UI Responsiveness & Hardware Rendering Optimizations
 PRODUCT_SYSTEM_PROPERTIES += \
-    persist.sys.fflag.override.settings_enable_monitor_phantom_procs=false
+    persist.sys.fflag.override.settings_enable_monitor_phantom_procs=false \
+    debug.sf.disable_backpressure=1 \
+    debug.sf.enable_gl_backpressure=0 \
+    debug.sf.latch_unsignaled=1 \
+    debug.sf.early.app.duration=560000 \
+    debug.sf.early.sf.duration=13000000 \
+    debug.sf.earlyGl.app.duration=13500000 \
+    debug.sf.earlyGl.sf.duration=13000000 \
+    debug.sf.late.app.duration=560000 \
+    debug.sf.late.sf.duration=560000 \
+    renderthread.skia.reduceopstasksplitting=true \
+    ro.surface_flinger.has_wide_color_display=true \
+    ro.surface_flinger.has_HDR_display=true \
+    ro.surface_flinger.use_color_management=true \
+    ro.surface_flinger.max_frame_buffer_acquired_buffers=3 \
+    persist.vendor.radio.5g_mode_pref=1 \
+    persist.vendor.radio.5g_ca_enable=1 \
+    persist.vendor.radio.nr_disable_mode=0 \
+    persist.vendor.radio.add_power_save=0 \
+    persist.vendor.radio.data_con_rprt=1 \
+    persist.vendor.radio.lte_vrte_ltd=1 \
+    persist.vendor.radio.report_codec=1 \
+    persist.vendor.radio.dfr_mode=2 \
+    persist.vendor.radio.multisim_switch_support=true \
+    persist.vendor.radio.dynamic_sar=1 \
+    telephony.lteOnCdmaDevice=1 \
+    ro.telephony.default_network=33,33
 
 # Boot control
 PRODUCT_PACKAGES += \

@@ -17,3 +17,38 @@ on boot
 
 on property:sys.boot_completed=1
     write /sys/devices/platform/soc/soc:mmi,charger/state_sync 1
+
+    # Storage I/O Optimization (UFS) - Reduce CPU interrupt overhead & optimize read buffers
+    write /sys/block/sda/queue/iostats 0
+    write /sys/block/sda/queue/read_ahead_kb 512
+    write /sys/block/sda/queue/nr_requests 128
+    write /sys/block/sdb/queue/iostats 0
+    write /sys/block/sdb/queue/read_ahead_kb 512
+    write /sys/block/sdc/queue/iostats 0
+    write /sys/block/sdc/queue/read_ahead_kb 512
+    write /sys/block/sdd/queue/iostats 0
+    write /sys/block/sdd/queue/read_ahead_kb 512
+    write /sys/block/sde/queue/iostats 0
+    write /sys/block/sde/queue/read_ahead_kb 512
+    write /sys/block/sdf/queue/iostats 0
+    write /sys/block/sdf/queue/read_ahead_kb 512
+
+    # Virtual Memory Management - Cooler thermals, less kcompactd CPU wakeups
+    write /proc/sys/vm/vfs_cache_pressure 70
+    write /proc/sys/vm/dirty_ratio 20
+    write /proc/sys/vm/dirty_background_ratio 5
+    write /proc/sys/vm/dirty_writeback_centisecs 1500
+    write /proc/sys/vm/stat_interval 10
+    write /proc/sys/vm/compaction_proactiveness 20
+
+    # WALT Energy-Aware CPU Scheduler - Buttery 120Hz UI pacing + thermal efficiency
+    write /proc/sys/walt/sched_conservative_pl 1
+    write /proc/sys/walt/sched_wake_up_idle 1
+    write /proc/sys/walt/sched_coloc_downmigrate_ns 5000000
+    write /proc/sys/walt/walt_rtg_cfs_boost_prio 99
+
+    # TCP Networking Optimization - Faster API/handshake, less radio power
+    write /proc/sys/net/ipv4/tcp_fastopen 3
+    write /proc/sys/net/ipv4/tcp_mtu_probing 1
+    write /proc/sys/net/ipv4/tcp_slow_start_after_idle 0
+

@@ -1,0 +1,23 @@
+allow priv_app cgroup:dir r_dir_perms;
+allow priv_app cgroup_v2:dir r_dir_perms;
+get_prop(priv_app, vendor_camera_prop)
+get_prop(priv_app, vendor_persist_camera_prop)
+get_prop(priv_app, moto_camera_config_prop)
+
+
+allow priv_app vendor_xdsp_device:chr_file rw_file_perms;
+allow priv_app vendor_qdsp_device:chr_file rw_file_perms;
+allow priv_app vendor_dsp_device:chr_file rw_file_perms;
+allow priv_app hal_camera_default:binder { call transfer };
+allow priv_app same_process_hal_file:file rx_file_perms;
+allow priv_app vendor_camera_data_file:dir create_dir_perms;
+allow priv_app vendor_camera_data_file:file create_file_perms;
+
+# Camera HAL extensions
+allow hal_camera_default vendor_camera_data_file:dir create_dir_perms;
+allow hal_camera_default vendor_camera_data_file:file create_file_perms;
+allow hal_camera_default vendor_xdsp_device:chr_file rw_file_perms;
+allow hal_camera_default vendor_qdsp_device:chr_file rw_file_perms;
+allow hal_camera_default vendor_dsp_device:chr_file rw_file_perms;
+
+

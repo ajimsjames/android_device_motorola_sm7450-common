@@ -1,0 +1,4 @@
+# Moto Camera / priv_app permissions
+allow priv_app cgroup:dir r_dir_perms;
+allow priv_app cgroup_v2:dir r_dir_perms;
+allow priv_app same_process_hal_file:file rx_file_perms;

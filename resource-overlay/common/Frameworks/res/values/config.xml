@@ -4,16 +4,30 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 <resources>
-    <!-- This string array should be overridden by the device to present a list of radio
-         attributes.  This is used by the connectivity manager to decide which networks can coexist
-         based on the hardware -->
-    <!-- An Array of "[ConnectivityManager connectionType],
-                      [# simultaneous connection types]"  -->
+    <!-- Network & Radio Attributes for cellular, Wi-Fi, Bluetooth, and Ethernet Tethering -->
+    <string-array name="networkAttributes" translatable="false">
+        <item>"wifi,1,1,1,-1,true"</item>
+        <item>"mobile,0,0,0,-1,true"</item>
+        <item>"mobile_mms,2,0,2,60000,true"</item>
+        <item>"mobile_supl,3,0,2,60000,true"</item>
+        <item>"mobile_dun,4,0,2,60000,true"</item>
+        <item>"mobile_hipri,5,0,3,60000,true"</item>
+        <item>"mobile_fota,10,0,2,60000,true"</item>
+        <item>"mobile_ims,11,0,2,60000,true"</item>
+        <item>"mobile_cbs,12,0,2,60000,true"</item>
+        <item>"wifi_p2p,13,1,0,-1,true"</item>
+        <item>"mobile_ia,14,0,2,-1,true"</item>
+        <item>"mobile_emergency,15,0,2,-1,true"</item>
+        <item>"ethernet,9,9,1,-1,true"</item>
+    </string-array>
+
     <string-array name="radioAttributes" translatable="false">
         <item>"1,1"</item>
         <item>"0,1"</item>
         <item>"7,1"</item>
+        <item>"9,1"</item>
     </string-array>
+
 
     <!-- Flag indicating whether we should enable the automatic brightness.
          Software implementation will be used if config_hardware_auto_brightness_available is not set -->
@@ -143,8 +157,8 @@
     <integer name="config_defaultHapticFeedbackIntensity">3</integer>
     <integer name="config_defaultMediaVibrationIntensity">3</integer>
 
-    <!-- Standby & Battery Efficiency Optimizations (Zero UI Latency Impact) -->
-    <bool name="config_lightDozeEnabled">false</bool>
+    <!-- Standby & Battery Efficiency Optimizations -->
+    <bool name="config_lightDozeEnabled">true</bool>
     <bool name="config_speed_up_audio_on_mt_calls">true</bool>
 
     <!-- Always On Display (AOD) and In-Display Fingerprint (FOD) responsiveness -->
@@ -157,4 +171,14 @@
     <!-- Double tap to wake (DT2W) hardware support -->
     <bool name="config_supportDoubleTapWake">true</bool>
     <bool name="config_supportDoubleTapOnHome">false</bool>
+
+    <!-- Regex of Ethernet/USB interfaces for tethering and network connectivity -->
+    <string name="config_ethernet_iface_regex" translatable="false">eth\\d|usb\\d|rndis\\d</string>
+    <string-array translatable="false" name="config_tether_ncm_regexs">
+        <item>ncm\\d</item>
+    </string-array>
+    <string-array translatable="false" name="config_tether_usb_regexs">
+        <item>usb\\d</item>
+        <item>rndis\\d</item>
+    </string-array>
 </resources>

@@ -111,7 +111,9 @@ BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/m
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES_BLOCKLIST_FILE := $(BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE)
 BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/modules.load.recovery))
 BOARD_RECOVERY_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/modules.load.recovery))
+BOARD_RECOVERY_KERNEL_MODULES_LOAD := $(BOARD_RECOVERY_RAMDISK_KERNEL_MODULES_LOAD)
 BOOT_KERNEL_MODULES := $(BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD)
+RECOVERY_KERNEL_MODULES := $(BOARD_RECOVERY_RAMDISK_KERNEL_MODULES_LOAD)
 
 TARGET_KERNEL_EXT_MODULES := \
     qcom/opensource/mmrm-driver \
@@ -166,7 +168,9 @@ TARGET_KERNEL_EXT_MODULES += \
     motorola/drivers/input/misc/goodix_fod_mmi \
     motorola/drivers/moto_netopt/con_dfpar \
     motorola/drivers/nfc/st21nfc \
-    motorola/drivers/wlan_antenna
+    motorola/drivers/wlan_antenna \
+    motorola/drivers/wlan_elna
+
 
 
 # Metadata

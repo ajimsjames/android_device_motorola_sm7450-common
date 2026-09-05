@@ -1,1 +1,9 @@
-vendor.goodix.sensor_name u:object_r:vendor_goodix_prop:s0
+vendor.goodix.sensor_name       u:object_r:vendor_goodix_prop:s0
+
+# Motorola Camera & ArcSoft HDR/SIQ Properties
+vendor.hdrchecker.              u:object_r:vendor_camera_prop:s0
+vendor.camera.siq.              u:object_r:vendor_camera_prop:s0
+ro.hardware.chipname            u:object_r:vendor_camera_prop:s0
+
+
+

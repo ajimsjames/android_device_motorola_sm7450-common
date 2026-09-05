@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: 2024 The Evolution X Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- Fast charging threshold in microwatts -->
+    <!-- 7.5W (7500000 uW) is standard fast charge threshold -->
+    <integer name="config_chargingFastThreshold">7500000</integer>
+    <integer name="config_chargingFastThreshold_v2">7500000</integer>
+    <integer name="config_chargingSlowThreshold_v2">5000000</integer>
+</resources>
