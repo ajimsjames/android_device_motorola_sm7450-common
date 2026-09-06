@@ -582,11 +582,9 @@ KernelVersionA=${KernelVersionStr:0:1}
 KernelVersionB=${KernelVersionS%.*}
 
 function configure_zram_parameters() {
-    zram_enable=`getprop ro.vendor.zram.swapon`
-    if [ "$zram_enable" == "false" ]; then
-        echo "ZRAM is disabled"
-        return
-    fi
+    echo "ZRAM is disabled per user configuration"
+    return
+}
 
     MemTotalStr=`cat /proc/meminfo | grep MemTotal`
     MemTotal=${MemTotalStr:16:8}

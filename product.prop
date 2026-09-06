@@ -42,12 +42,21 @@ renderthread.skia.reduceopstasksplitting=true
 windowsmgr.max_events_per_sec=300
 touch.pressure.scale=0.001
 
-# ART JIT Compiler & 12GB RAM Optimization
+# ART JIT Compiler & Dex2Oat CPU Throttling (Zero UI lag during Play Store installs)
 dalvik.vm.usejit=true
 dalvik.vm.usejitprofiles=true
 dalvik.vm.dex2oat64.enabled=true
+dalvik.vm.boot-dex2oat-threads=8
+dalvik.vm.boot-dex2oat-cpu-set=0,1,2,3,4,5,6,7
+dalvik.vm.dex2oat-threads=4
+dalvik.vm.dex2oat-cpu-set=0,1,2,3,4,5
+dalvik.vm.background-dex2oat-threads=2
+dalvik.vm.background-dex2oat-cpu-set=0,1,2,3
+dalvik.vm.dex2oat-resolve-startup-strings=true
+dalvik.vm.dex2oat-max-image-arg-len=524288
 ro.config.compact_action_1=4
 ro.config.compact_action_2=2
+
 
 # Battery Endurance, Standby & Wireless Power Savings
 wifi.supplicant_scan_interval=240

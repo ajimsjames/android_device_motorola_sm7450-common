@@ -69,6 +69,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES_DEBUG += \
     bootctl
 
+# Dolby Atmos & Dolby Vision
+$(call inherit-product, hardware/dolby/dolby.mk)
+
 # Audio
 PRODUCT_PACKAGES += \
     android.hardware.audio@7.0-impl \
@@ -93,6 +96,7 @@ PRODUCT_PACKAGES += \
     libfmpal \
     sound_trigger.primary.taro \
     vendor.qti.hardware.AGMIPC@1.0-service
+
 
 AUDIO_HAL_DIR := hardware/qcom-caf/sm8450/audio/primary-hal
 

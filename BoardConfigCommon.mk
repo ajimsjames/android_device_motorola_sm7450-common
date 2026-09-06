@@ -52,6 +52,11 @@ BOARD_SUPPORTS_OPENSOURCE_STHAL := true
 TARGET_USES_QCOM_MM_AUDIO := true
 TARGET_PAL_SPKR_PROTECTION_PATH := /mnt/vendor/persist/factory/audio/audio.cal
 
+# Dolby Atmos & Dolby Vision
+TARGET_INCLUDES_DolbyVision := true
+
+
+
 # Bootloader
 TARGET_NO_BOOTLOADER := true
 
