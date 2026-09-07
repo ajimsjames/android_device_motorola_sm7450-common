@@ -1,0 +1,5 @@
+# Moto Actions Hardware Controls (Platform Nodes)
+allow system_app cgroup_v2:file rw_file_perms;
+allow system_app cgroup_v2:dir r_dir_perms;
+allow system_app sysfs_devices_system_cpu:file rw_file_perms;
+allow system_app sysfs_devices_system_cpu:dir r_dir_perms;

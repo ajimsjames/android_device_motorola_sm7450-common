@@ -1,0 +1,9 @@
+# Moto Actions Hardware Controls (Vendor Sysfs Nodes)
+allow system_app sysfs_livedisplay_tuneable:file rw_file_perms;
+allow system_app sysfs_livedisplay_tuneable:dir r_dir_perms;
+allow system_app vendor_sysfs_graphics:file rw_file_perms;
+allow system_app vendor_sysfs_graphics:dir r_dir_perms;
+allow system_app vendor_sysfs_battery_supply:file rw_file_perms;
+allow system_app vendor_sysfs_battery_supply:dir r_dir_perms;
+allow system_app vendor_sysfs_touchpanel:file rw_file_perms;
+allow system_app vendor_sysfs_touchpanel:dir r_dir_perms;

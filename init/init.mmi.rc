@@ -262,6 +262,26 @@ on boot
    chown system system /sys/class/leds/red/brightness
    chmod 0664 /sys/class/leds/red/brightness
 
+   # Moto Actions Hardware Controls
+   chown system system /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/dsi_display_hbm
+   chmod 0666 /sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/card0-DSI-1/dsi_display_hbm
+   chown system system /sys/devices/platform/soc/soc:qcom,dsi-display-primary/hbm
+   chmod 0666 /sys/devices/platform/soc/soc:qcom,dsi-display-primary/hbm
+   chown system system /sys/devices/platform/soc/soc:qcom,dsi-display-primary/dc
+   chmod 0666 /sys/devices/platform/soc/soc:qcom,dsi-display-primary/dc
+   chown system system /sys/class/leds/led:torch_0/brightness
+   chmod 0666 /sys/class/leds/led:torch_0/brightness
+   chown system system /sys/class/leds/led:switch_0/brightness
+   chmod 0666 /sys/class/leds/led:switch_0/brightness
+   chown system system /sys/class/touchscreen/primary/sample
+   chmod 0666 /sys/class/touchscreen/primary/sample
+   chown system system /sys/class/touchscreen/primary/edge
+   chmod 0666 /sys/class/touchscreen/primary/edge
+   chown system system /sys/class/power_supply/battery/charge_control_limit
+   chmod 0666 /sys/class/power_supply/battery/charge_control_limit
+   chown system system /dev/cpuctl/top-app/cpu.uclamp.min
+   chmod 0666 /dev/cpuctl/top-app/cpu.uclamp.min
+
    # Change ownership of aov related sysfs entries
    chown audio audio /sys/kernel/aov/trigger
    chown audio audio /sys/kernel/aov/register

@@ -69,8 +69,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES_DEBUG += \
     bootctl
 
-# Dolby Atmos & Dolby Vision
-$(call inherit-product, hardware/dolby/dolby.mk)
+
 
 # Audio
 PRODUCT_PACKAGES += \
