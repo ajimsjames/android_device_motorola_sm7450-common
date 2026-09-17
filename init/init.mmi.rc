@@ -325,13 +325,17 @@ on boot
     chmod 0664 /sys/class/leds/led:torch_1/brightness
     chown system system /sys/class/leds/led:torch_1/brightness
 
-    # Touch Gaming Polling Rate & Curved Edge Rejection
+    # Touch Gaming Polling Rate, Double Tap to Wake & Curved Edge Rejection
     chmod 0664 /sys/class/touchscreen/primary/sample
     chown system system /sys/class/touchscreen/primary/sample
     chmod 0664 /sys/class/touchscreen/primary/edge
     chown system system /sys/class/touchscreen/primary/edge
     chmod 0664 /sys/class/touchscreen/primary/interpolation
     chown system system /sys/class/touchscreen/primary/interpolation
+    chmod 0664 /sys/class/touchscreen/primary/double_tap_enabled
+    chown system system /sys/class/touchscreen/primary/double_tap_enabled
+    chmod 0664 /sys/class/touchscreen/primary/single_tap_enabled
+    chown system system /sys/class/touchscreen/primary/single_tap_enabled
 
 on property:sys.boot_completed=1
     # Enable PowerHAL hint processing
