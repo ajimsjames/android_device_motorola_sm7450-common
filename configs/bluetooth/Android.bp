@@ -1,0 +1,109 @@
+//
+// Copyright (C) 2024 The LineageOS Project
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+cc_prebuilt_library_shared {
+    name: "liblhdc",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: ["lib64/liblhdc.so"],
+        },
+        android_arm: {
+            srcs: ["lib/liblhdc.so"],
+        },
+    },
+    compile_multilib: "both",
+    prefer: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "liblhdcBT_enc",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: ["lib64/liblhdcBT_enc.so"],
+        },
+        android_arm: {
+            srcs: ["lib/liblhdcBT_enc.so"],
+        },
+    },
+    compile_multilib: "both",
+    prefer: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "liblhdcv5",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: ["lib64/liblhdcv5.so"],
+        },
+        android_arm: {
+            srcs: ["lib/liblhdcv5.so"],
+        },
+    },
+    compile_multilib: "both",
+    prefer: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "liblhdcv5BT_enc",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: ["lib64/liblhdcv5BT_enc.so"],
+        },
+        android_arm: {
+            srcs: ["lib/liblhdcv5BT_enc.so"],
+        },
+    },
+    compile_multilib: "both",
+    prefer: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "com.qualcomm.qti.bluetooth_audio@1.0_system_ext",
+    stem: "com.qualcomm.qti.bluetooth_audio@1.0",
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: ["system_ext_lib64/com.qualcomm.qti.bluetooth_audio@1.0.so"],
+        },
+        android_arm: {
+            srcs: ["system_ext_lib/com.qualcomm.qti.bluetooth_audio@1.0.so"],
+        },
+    },
+    compile_multilib: "both",
+    prefer: true,
+    system_ext_specific: true,
+}
+
+android_app_import {
+    name: "MotoBtAptxMode",
+    apk: "app/MotoBtAptxMode/MotoBtAptxMode.apk",
+    certificate: "platform",
+    dex_preopt: {
+        enabled: false,
+    },
+    privileged: true,
+    system_ext_specific: true,
+}
+

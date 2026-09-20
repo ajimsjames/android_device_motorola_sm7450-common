@@ -561,3 +561,6 @@ subsystem mem_buf_vm
 /sys/devices/platform/soc/*.spi/spi_master/spi0/spi0.*/touchscreen/*    double_tap_pressed    0664    system  system
 /sys/devices/platform/soc/*.spi/spi_master/spi0/spi0.*/touchscreen/*    udfps_enabled         0664    system  system
 /sys/devices/platform/soc/*.spi/spi_master/spi0/spi0.*/touchscreen/*    udfps_pressed         0664    system  system
+
+# RichTap Haptics
+/dev/qcom_haptic                                                              0666    system  system

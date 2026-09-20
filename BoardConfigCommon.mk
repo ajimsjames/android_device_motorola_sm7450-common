@@ -107,7 +107,6 @@ TARGET_KERNEL_EXT_MODULE_ROOT := kernel/motorola/sm7450-modules
 
 # Kernel Modules
 BOARD_KERNEL_MODULES_LOAD_ALLOW_MISSING := true
-TARGET_AUTO_COLLECT_KERNEL_MODULE_DEPS := true
 BOARD_VENDOR_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/modules.load))
 BOARD_VENDOR_DLKM_KERNEL_MODULES_LOAD := $(strip $(shell cat $(COMMON_PATH)/modules.load))
 BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE := $(TARGET_KERNEL_SOURCE)/modules.vendor_blocklist.msm.waipio

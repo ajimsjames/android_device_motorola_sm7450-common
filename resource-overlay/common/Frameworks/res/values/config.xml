@@ -183,7 +183,7 @@
     <bool name="config_dozeAlwaysOnDisplayAvailable">true</bool>
     <bool name="config_displayBlanksAfterDoze">false</bool>
     <bool name="config_fingerprintWakeAndUnlock">true</bool>
-    <bool name="config_dozeSupportsAodHalfZoned">true</bool>
+    <bool name="config_dozeSupportsAodHalfZoned">false</bool>
     <bool name="config_wakeOnDozingFOD">true</bool>
 
     <!-- Double tap to wake (DT2W) hardware support -->

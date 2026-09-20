@@ -110,6 +110,7 @@ PRODUCT_COPY_FILES += \
     $(AUDIO_HAL_DIR)/configs/taro/card-defs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/card-defs.xml \
     $(AUDIO_HAL_DIR)/configs/taro/microphone_characteristics.xml:$(TARGET_COPY_OUT_VENDOR)/etc/microphone_characteristics.xml \
     $(LOCAL_PATH)/configs/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_cape/audio_effects.xml \
+    $(LOCAL_PATH)/configs/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_diwali/audio_effects.xml \
     $(LOCAL_PATH)/configs/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_taro/audio_effects.xml \
     $(LOCAL_PATH)/configs/audio/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml
 
@@ -263,6 +264,8 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.opengles.deqp.level-2021-03-01.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.opengles.deqp.level.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/android.software.verified_boot.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.verified_boot.xml \
+    device/motorola/sm7450-common/keylayout/double-tap.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/double-tap.kl \
+    device/motorola/sm7450-common/keylayout/goodix_ts.kl:$(TARGET_COPY_OUT_VENDOR)/usr/keylayout/goodix_ts.kl \
     frameworks/native/data/etc/android.software.vulkan.deqp.level-2021-03-01.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.vulkan.deqp.level.xml \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/sku_cape/android.hardware.sensor.accelerometer.xml \
     frameworks/native/data/etc/android.hardware.sensor.compass.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/sku_cape/android.hardware.sensor.compass.xml \
@@ -382,16 +385,42 @@ PRODUCT_SOONG_NAMESPACES += vendor/qcom/opensource/usb/etc
 PRODUCT_PACKAGES += \
     vndservicemanager
 
-# Vibrator
+# Vibrator & RichTap Haptics
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.vibrator.service
 
 PRODUCT_COPY_FILES += \
-    vendor/qcom/opensource/vibrator/excluded-input-devices.xml:$(TARGET_COPY_OUT_VENDOR)/etc/excluded-input-devices.xml
+    vendor/qcom/opensource/vibrator/excluded-input-devices.xml:$(TARGET_COPY_OUT_VENDOR)/etc/excluded-input-devices.xml \
+    device/motorola/sm7450-common/configs/richtap/richtap-api.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/richtap-api.xml \
+    device/motorola/sm7450-common/configs/richtap/richtap-api.jar:$(TARGET_COPY_OUT_SYSTEM)/framework/richtap-api.jar
+
+PRODUCT_PACKAGES += \
+    liblhdc \
+    liblhdcBT_enc \
+    liblhdcv5 \
+    liblhdcv5BT_enc \
+    com.qualcomm.qti.bluetooth_audio@1.0_system_ext \
+    MotoBtAptxMode
+
+# Dolby Atmos & Vision
+TARGET_INCLUDES_DolbyVision := true
+TARGET_INCLUDES_OEM_App := true
+$(call inherit-product, hardware/dolby/dolby.mk)
+
+
+PRODUCT_COPY_FILES += \
+    device/motorola/sm7450-common/configs/bluetooth/etc/bt_stack_debug.conf:$(TARGET_COPY_OUT_VENDOR)/etc/bt_stack_debug.conf \
+    device/motorola/sm7450-common/configs/bluetooth/etc/bt_stack_level6.conf:$(TARGET_COPY_OUT_VENDOR)/etc/bt_stack_level6.conf \
+    device/motorola/sm7450-common/configs/bluetooth/privapp-permissions-com.bluetooth.aptxmode.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/permissions/privapp-permissions-com.bluetooth.aptxmode.xml \
+    device/motorola/sm7450-common/configs/bluetooth/default-permissions-com.bluetooth.aptxmode.xml:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/default-permissions/default-permissions-com.bluetooth.aptxmode.xml \
+    device/motorola/sm7450-common/configs/audio/bluetooth_qti_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_qti_audio_policy_configuration.xml \
+    device/motorola/sm7450-common/configs/audio/bluetooth_qti_hearing_aid_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_qti_hearing_aid_audio_policy_configuration.xml \
+    device/motorola/sm7450-common/configs/audio/a2dp_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_audio_policy_configuration.xml
 
 # VINTF
 DEVICE_FRAMEWORK_MANIFEST_FILE += device/motorola/sm7450-common/vintf/framework_manifest.xml
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
+    device/motorola/sm7450-common/vintf/framework_compatibility_matrix.xml \
     hardware/motorola/vintf/device_framework_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml
 DEVICE_MATRIX_FILE := hardware/qcom-caf/common/compatibility_matrix.xml

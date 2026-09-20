@@ -1,0 +1,4 @@
+(typeattributeset new_objects
+  ( new_objects
+    hal_dms_hwservice
+  ))

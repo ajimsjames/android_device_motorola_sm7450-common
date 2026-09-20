@@ -1,0 +1,14 @@
+#
+# Copyright (C) 2024 The LineageOS Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+key 704   WAKE
+key 705   WAKE
+key 706   WAKE
+key 707   WAKE
+key 708   WAKE
+key 709   WAKE
+key 143   WAKE
+key 116   POWER             WAKE
