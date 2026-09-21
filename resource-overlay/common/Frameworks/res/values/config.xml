@@ -199,4 +199,8 @@
         <item>usb\\d</item>
         <item>rndis\\d</item>
     </string-array>
+
+    <!-- Deep Doze & Auto-Power Standby Optimization (Unblocks Deep Sleep) -->
+    <bool name="config_autoPowerModeUseMotionSensor">false</bool>
+    <bool name="config_autoPowerModePrefetchLocation">false</bool>
 </resources>
