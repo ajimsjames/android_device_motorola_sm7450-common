@@ -133,7 +133,7 @@ ro.bluetooth.a2dp_offload.supported=true
 vendor.qcom.bluetooth.soc=cherokee
 
 # Camera
-persist.vendor.camera.privapp.list=com.motorola.camera3,org.lineageos.aperture,com.google.android.GoogleCamera,com.android.camera
+persist.vendor.camera.privapp.list=com.motorola.camera3,org.lineageos.aperture,com.google.android.GoogleCamera
 vendor.camera.aux.packagelist=com.motorola.camera3,org.lineageos.aperture,com.google.android.GoogleCamera,com.whatsapp
 persist.vendor.camera.physical.num=4
 vendor.camera.siq.empty_lib=1
